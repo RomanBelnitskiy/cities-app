@@ -1,9 +1,9 @@
-package com.example.citiesapp;
+package com.example.citiesapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class StartupController {
     @FXML
     private Label welcomeText;
 
