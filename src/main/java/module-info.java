@@ -3,6 +3,7 @@ module com.example.citiesapp {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    requires org.jsoup;
 
     opens com.example.citiesapp to javafx.fxml;
     exports com.example.citiesapp;
