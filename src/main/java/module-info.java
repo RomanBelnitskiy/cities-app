@@ -6,6 +6,6 @@ module com.example.citiesapp {
 
     opens com.example.citiesapp to javafx.fxml;
     exports com.example.citiesapp;
-    exports com.example.citiesapp.controller;
-    opens com.example.citiesapp.controller to javafx.fxml;
+    exports com.example.citiesapp.helloWindow;
+    opens com.example.citiesapp.helloWindow to javafx.fxml;
 }
