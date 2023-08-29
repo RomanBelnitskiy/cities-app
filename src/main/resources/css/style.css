@@ -1,0 +1,53 @@
+@font-face {
+    font-family: Roboto;
+    src: url('../fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: Roboto Bold;
+    src: url('../fonts/Roboto-Bold.ttf');
+}
+
+@font-face {
+    font-family: Lato;
+    src: url('../fonts/Lato-Regular.ttf');
+}
+
+#pane{
+    -fx-font: 14px "Roboto";
+    -fx-background-image: url("../images/kyiv.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 500 400;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+
+Label {
+    -fx-font: 16px "Roboto";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,1.0) , 3,0,0,1 );
+}
+
+.custom-button {
+    -fx-font: 16px "Roboto";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 5 25 5 25;
+    -fx-pref-width: 150px;
+    -fx-background-color: #0095E5;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,1.0) , 4,0,0,1 );
+    /*-fx-background-radius: 20px;*/
+    /*-fx-background-color: linear-gradient(to bottom, #015bbb 60%, #fed500 61%);*/
+}
+
+ListView .list-cell {
+    -fx-font: 14px "Roboto";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,1.0) , 4,0,0,1 );
+    -fx-background-color: transparent;
+}
+.list-view {
+   -fx-background-color: rgba(0, 0, 0, .1);
+}
