@@ -32,6 +32,8 @@ public class MainController {
 
     @FXML
     private Button moveBtn;
+    @FXML
+    private Button surrenderBtn;
 
     @FXML
     private ListView<String> movesList;
@@ -55,6 +57,7 @@ public class MainController {
         movesList.setItems(moves);
 
         moveBtn.setOnAction(moveEventHandler());
+        surrenderBtn.setOnAction(surrenderEventHandler());
 
         cityNameField.setOnAction(moveEventHandler());
         cityNameField.requestFocus();
