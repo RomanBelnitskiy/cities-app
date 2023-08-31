@@ -2,14 +2,13 @@ package com.example.citiesapp.mainWindow;
 
 import com.example.citiesapp.loadNames.CitiesNamesLoader;
 import com.example.citiesapp.loadNames.UkrainianCitiesNamesLoader;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.Map;
 import java.util.Optional;
@@ -33,6 +32,8 @@ public class MainController {
 
     @FXML
     private Button moveBtn;
+    @FXML
+    private Button surrenderBtn;
 
     @FXML
     private ListView<String> movesList;
@@ -56,6 +57,7 @@ public class MainController {
         movesList.setItems(moves);
 
         moveBtn.setOnAction(moveEventHandler());
+        surrenderBtn.setOnAction(surrenderEventHandler());
 
         cityNameField.setOnAction(moveEventHandler());
         cityNameField.requestFocus();
@@ -111,6 +113,18 @@ public class MainController {
             currentCity = name;
             usedCities.put(name, true);
         }
+    }
+    private EventHandler<ActionEvent> surrenderEventHandler(){
+        return event -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Здатися");
+            alert.setHeaderText("Попередження");
+            alert.setContentText("Ви дійсно хочете здатися? Гру буде закінчено.");
+            if (alert.showAndWait().get() == ButtonType.OK){
+                System.out.println("Ви здалися, гру закінчено.");
+                Platform.exit();
+            }
+        };
     }
 
     private Character getLastValidCharacter(String cityName) {
