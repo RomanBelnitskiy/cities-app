@@ -130,7 +130,6 @@ public class MainController {
                 usedCities.put(name, true);
         }
         } else {
-            System.out.println("Комп'ютер не може назвати місто. Ви виграли!");
             showCongratulationsDialog();
         }
     }
