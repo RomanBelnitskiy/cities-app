@@ -130,8 +130,8 @@ public class MainController {
                 usedCities.put(name, true);
         }
         } else {
-            showCongratulationsDialog();
             System.out.println("Комп'ютер не може назвати місто. Ви виграли!");
+            showCongratulationsDialog();
         }
     }
     private boolean computerCanMove (Character lastChar){
