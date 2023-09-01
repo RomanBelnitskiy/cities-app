@@ -29,7 +29,8 @@ Label {
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,1.0) , 3,0,0,1 );
 }
 
-.custom-button {
+.custom-button,
+.dialog-pane .button {
     -fx-font: 16px "Roboto";
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -41,6 +42,12 @@ Label {
     /*-fx-background-color: linear-gradient(to bottom, #015bbb 60%, #fed500 61%);*/
 }
 
+.custom-button:hover,
+.dialog-pane .button:hover{
+  -fx-background-color:white;
+  -fx-text-fill: #0095E5;
+}
+
 ListView .list-cell {
     -fx-font: 14px "Roboto";
     -fx-text-fill: white;
@@ -50,4 +57,27 @@ ListView .list-cell {
 }
 .list-view {
    -fx-background-color: rgba(0, 0, 0, .1);
+}
+
+.dialog-pane {
+  -fx-border-color: white;
+  -fx-border-width: 1.0px;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-font: 15px "Roboto";
+    -fx-text-fill: black;
+    -fx-effect: none;
+}
+
+.dialog-pane:header .header-panel .label {
+  -fx-text-fill: black;
+  -fx-font-size: 15.0px;
+  -fx-effect: none;
+}
+
+.dialog-pane > .content.label {
+   -fx-text-fill: black;
+   -fx-font-size: 13.0px;
+   -fx-effect: none;
 }

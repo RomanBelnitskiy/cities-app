@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.example.citiesapp.util.WindowUtils.getStageFromEvent;
+
 public class HelloController {
     @FXML
     private ComboBox<String> cbLanguage;
@@ -67,10 +69,5 @@ public class HelloController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static Stage getStageFromEvent(ActionEvent event) {
-        Node node = (Node) event.getSource();
-        return (Stage) node.getScene().getWindow();
     }
 }

@@ -2,47 +2,62 @@ package com.example.citiesapp.mainWindow;
 
 import com.example.citiesapp.loadNames.CitiesNamesLoader;
 import com.example.citiesapp.loadNames.UkrainianCitiesNamesLoader;
+import com.example.citiesapp.util.AlertUtils;
+import com.example.citiesapp.util.WindowUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.example.citiesapp.util.AlertUtils.*;
 import static com.example.citiesapp.util.AlertUtils.showErrorAlert;
 import static com.example.citiesapp.util.AlertUtils.showInformationAlert;
+import static com.example.citiesapp.util.WindowUtils.*;
 
 public class MainController {
     private String playerName;
     private String currentCity;
     private final ObservableList<String> moves = FXCollections.observableArrayList();
+    private CitiesNamesLoader cityLoader;
     private int movesCounter;
     private boolean firstMove;
-
     private Map<String, Boolean> usedCities;
 
     @FXML
     private TextField cityNameField;
-
     @FXML
     private Button moveBtn;
     @FXML
     private Button surrenderBtn;
-
+    @FXML
+    private Button newGameBtn;
     @FXML
     private ListView<String> movesList;
 
     public MainController() {
-        firstMove = true;
+        cityLoader = new UkrainianCitiesNamesLoader();
+        initNewGame();
+    }
 
-        CitiesNamesLoader loader = new UkrainianCitiesNamesLoader();
-        setupCitiesNames(loader);
+    private void initNewGame() {
+        firstMove = true;
+        currentCity = "";
+
+        setupCitiesNames(cityLoader);
+
+        moves.clear();
+        moves.add("Список ходів:");
     }
 
     private void setupCitiesNames(CitiesNamesLoader loader) {
@@ -53,11 +68,11 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        moves.add("Список ходів:");
         movesList.setItems(moves);
 
         moveBtn.setOnAction(moveEventHandler());
         surrenderBtn.setOnAction(surrenderEventHandler());
+        newGameBtn.setOnAction(newGameEventHandler());
 
         cityNameField.setOnAction(moveEventHandler());
         cityNameField.requestFocus();
@@ -118,11 +133,22 @@ public class MainController {
         return event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Здатися");
-            alert.setHeaderText("Попередження");
-            alert.setContentText("Ви дійсно хочете здатися? Гру буде закінчено.");
+            alert.setHeaderText("Ви дійсно хочете здатися?");
+            alert.setContentText("Поточну гру буде завершено.");
             if (alert.showAndWait().get() == ButtonType.OK){
-                System.out.println("Ви здалися, гру закінчено.");
                 Platform.exit();
+            }
+        };
+    }
+
+    private EventHandler<ActionEvent> newGameEventHandler() {
+        return event -> {
+            Optional<ButtonType> buttonPressed = showConfirmationAlert(
+                    playerName + ", Ви дійсно хочете розпочати нову гру?",
+                    "Поточну гру буде завершено.",
+                    getStageFromEvent(event));
+            if (buttonPressed.get() == ButtonType.OK){
+                initNewGame();
             }
         };
     }
