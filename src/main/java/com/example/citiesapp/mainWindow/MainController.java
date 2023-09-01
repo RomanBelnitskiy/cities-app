@@ -21,8 +21,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.example.citiesapp.util.AlertUtils.*;
-import static com.example.citiesapp.util.AlertUtils.showErrorAlert;
-import static com.example.citiesapp.util.AlertUtils.showInformationAlert;
 import static com.example.citiesapp.util.WindowUtils.*;
 
 public class MainController {
@@ -115,18 +113,47 @@ public class MainController {
     private void moveAI() {
         Character c = getLastValidCharacter(currentCity);
 
-        Optional<String> optName = usedCities.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey().startsWith(c.toString().toUpperCase()) && !entry.getValue())
-                .map(Map.Entry::getKey)
-                .findFirst();
+        boolean computerCanMove = computerCanMove(c);
 
-        if (optName.isPresent()) {
-            String name = optName.get();
-            movesCounter++;
-            moves.add(1, movesCounter + ". Комп'ютер: " + name);
-            currentCity = name;
-            usedCities.put(name, true);
+        if (computerCanMove){
+            Optional<String> optName = usedCities.entrySet()
+                    .stream()
+                    .filter(entry -> entry.getKey().startsWith(c.toString().toUpperCase()) && !entry.getValue())
+                    .map(Map.Entry::getKey)
+                    .findFirst();
+
+            if (optName.isPresent()) {
+                String name = optName.get();
+                movesCounter++;
+                moves.add(1, movesCounter + ". Комп'ютер: " + name);
+                currentCity = name;
+                usedCities.put(name, true);
+        }
+        } else {
+            showCongratulationsDialog();
+        }
+    }
+    private boolean computerCanMove (Character lastChar){
+        for (Map.Entry<String, Boolean> entry : usedCities.entrySet()){
+            String cityValue = entry.getKey();
+            Boolean isCityUsed = entry.getValue();
+
+            if (!isCityUsed && cityValue.startsWith(lastChar.toString().toUpperCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+    private void showCongratulationsDialog() {
+        Optional<ButtonType> buttonPressed = showConfirmationAlert(
+                playerName + ", вітаємо, ви перемогли!",
+                "Ви хочете розпочати нову гру?",
+                null);
+
+        if (buttonPressed.get() == ButtonType.OK) {
+            initNewGame();
+        } else {
+            Platform.exit();
         }
     }
     private EventHandler<ActionEvent> surrenderEventHandler(){
