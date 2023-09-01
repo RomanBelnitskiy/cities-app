@@ -1,37 +1,41 @@
 package com.example.citiesapp;
 
+import com.example.citiesapp.helloWindow.HelloController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import static com.example.citiesapp.util.FXMLUtils.*;
 
 public class AppLauncher extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        Scene scene = loadScene();
+    public void start(Stage stage) {
+        Scene scene = createHelloWindowScene();
         stage.setScene(scene);
-        stage.setTitle("Гра \"Міста\"");
-        stage.getIcons().add(loadIcon());
+        ResourceBundle bundle = loadDefaultLanguageResources();
+        stage.setTitle(bundle.getString("window-title"));
+        stage.getIcons().add(loadAppIcon());
         stage.setResizable(false);
         stage.show();
     }
 
+    public Scene createHelloWindowScene() {
+        Locale locale = getDefaultLocale();
+        FXMLLoader fxmlLoader = getLocalizedFXMLLoader("/views/hello-view.fxml", locale);
+        Parent root = loadRoot(fxmlLoader);
+
+        HelloController controller = fxmlLoader.getController();
+        controller.setLocale(locale);
+
+        return createScene(root);
+    }
+
     public static void main(String[] args) {
         launch();
-    }
-
-    public Scene loadScene() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(AppLauncher.class.getResource("/views/hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(this.getClass().getResource("/css/style.css").toExternalForm());
-
-        return scene;
-    }
-
-    public Image loadIcon() {
-        return new Image(this.getClass().getResource("/images/city_icon.png").toExternalForm());
     }
 }

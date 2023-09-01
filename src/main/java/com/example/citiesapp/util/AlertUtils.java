@@ -9,8 +9,16 @@ import javafx.stage.StageStyle;
 import java.util.Optional;
 
 public class AlertUtils {
-    public static void showInformationAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, message);
+    public static void showInformationAlert(String content, Stage owner) {
+        showInformationAlert("", content, owner);
+    }
+
+    public static void showInformationAlert(String header, String content, Stage owner) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.initOwner(owner);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
         alert.showAndWait();
     }
 
