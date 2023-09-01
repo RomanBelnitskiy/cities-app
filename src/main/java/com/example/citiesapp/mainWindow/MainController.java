@@ -3,20 +3,18 @@ package com.example.citiesapp.mainWindow;
 import com.example.citiesapp.loadNames.CitiesNamesLoader;
 import com.example.citiesapp.loadNames.UkrainianCitiesNamesLoader;
 import com.example.citiesapp.util.AlertUtils;
-import com.example.citiesapp.util.WindowUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,14 +22,6 @@ import static com.example.citiesapp.util.AlertUtils.*;
 import static com.example.citiesapp.util.WindowUtils.*;
 
 public class MainController {
-    private String playerName;
-    private String currentCity;
-    private final ObservableList<String> moves = FXCollections.observableArrayList();
-    private CitiesNamesLoader cityLoader;
-    private int movesCounter;
-    private boolean firstMove;
-    private Map<String, Boolean> usedCities;
-
     @FXML
     private TextField cityNameField;
     @FXML
@@ -43,19 +33,29 @@ public class MainController {
     @FXML
     private ListView<String> movesList;
 
+    private final ObservableList<String> moves = FXCollections.observableArrayList();
+    private String playerName;
+    private String currentCity;
+    private CitiesNamesLoader cityLoader;
+    private int movesCounter;
+    private boolean firstMove;
+    private Map<String, Boolean> usedCities;
+    private ResourceBundle bundle;
+    private Stage stage;
+
+
     public MainController() {
         cityLoader = new UkrainianCitiesNamesLoader();
-        initNewGame();
     }
 
-    private void initNewGame() {
+    public void initNewGame() {
         firstMove = true;
         currentCity = "";
 
         setupCitiesNames(cityLoader);
 
         moves.clear();
-        moves.add("Список ходів:");
+        moves.add(getLocal("moves-list"));
     }
 
     private void setupCitiesNames(CitiesNamesLoader loader) {
@@ -81,18 +81,19 @@ public class MainController {
             String cityName = cityNameField.getText();
             Boolean result = usedCities.get(cityName);
             if (result == null) {
-                showErrorAlert("Такого міста в Україні не існує");
+                showErrorAlert(getLocal("city-doesnt-exist"));
                 return;
             }
             if (result) {
-                showInformationAlert(String.format("Місто \'%s\' вже було використане", cityName));
+                showInformationAlert(String.format(getLocal("city-was-used"), cityName), stage);
             } else {
                 if (!firstMove) {
                     Character lastChar = getLastValidCharacter(currentCity);
                     if (!cityName.startsWith(lastChar.toString().toUpperCase())) {
                         showInformationAlert(
-                                String.format("Назва міста \'%s\' не відповідає правилам.\n" +
-                                        "Назва міста має починатися з останньої літери міста, названого попереднім гравцем", cityName)
+                                String.format(getLocal("city-name-not-valid"), cityName),
+                                getLocal("city-name-rule"),
+                                stage
                         );
                         return;
                     }
@@ -125,7 +126,7 @@ public class MainController {
             if (optName.isPresent()) {
                 String name = optName.get();
                 movesCounter++;
-                moves.add(1, movesCounter + ". Комп'ютер: " + name);
+                moves.add(1, movesCounter + getLocal("ai-name") + name);
                 currentCity = name;
                 usedCities.put(name, true);
         }
@@ -146,9 +147,9 @@ public class MainController {
     }
     private void showCongratulationsDialog() {
         Optional<ButtonType> buttonPressed = showConfirmationAlert(
-                playerName + ", вітаємо, ви перемогли!",
-                "Ви хочете розпочати нову гру?",
-                null);
+                playerName + getLocal("congratulation-header"),
+                getLocal("congratulation-content"),
+                stage);
 
         if (buttonPressed.get() == ButtonType.OK) {
             initNewGame();
@@ -158,11 +159,11 @@ public class MainController {
     }
     private EventHandler<ActionEvent> surrenderEventHandler(){
         return event -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Здатися");
-            alert.setHeaderText("Ви дійсно хочете здатися?");
-            alert.setContentText("Поточну гру буде завершено.");
-            if (alert.showAndWait().get() == ButtonType.OK){
+            Optional<ButtonType> buttonPressed = showConfirmationAlert(
+                    getLocal("surrender-header"),
+                    getLocal("surrender-content"),
+                    stage);
+            if (buttonPressed.get() == ButtonType.OK){
                 Platform.exit();
             }
         };
@@ -171,9 +172,9 @@ public class MainController {
     private EventHandler<ActionEvent> newGameEventHandler() {
         return event -> {
             Optional<ButtonType> buttonPressed = showConfirmationAlert(
-                    playerName + ", Ви дійсно хочете розпочати нову гру?",
-                    "Поточну гру буде завершено.",
-                    getStageFromEvent(event));
+                    playerName + getLocal("new-game-header"),
+                    getLocal("new-game-content"),
+                    stage);
             if (buttonPressed.get() == ButtonType.OK){
                 initNewGame();
             }
@@ -196,5 +197,17 @@ public class MainController {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public void setBundle(ResourceBundle bundle) {
+        this.bundle = bundle;
+    }
+
+    private String getLocal(String key) {
+        return bundle.getString(key);
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

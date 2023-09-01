@@ -13,7 +13,7 @@
     <left>
         <VBox prefHeight="400.0" prefWidth="250.0" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Введіть назву міста">
+                <Label text="%enter-city-name">
                     <VBox.margin>
                         <Insets bottom="10.0" />
                     </VBox.margin>
@@ -23,18 +23,18 @@
                         <Insets bottom="10.0" />
                     </VBox.margin>
                 </TextField>
-                <Button fx:id="moveBtn" mnemonicParsing="false" styleClass="custom-button" text="Зробити хід">
+                <Button fx:id="moveBtn" mnemonicParsing="false" styleClass="custom-button" text="%make-move">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
                 </Button>
             <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                <Button fx:id="surrenderBtn" contentDisplay="TOP" mnemonicParsing="false" styleClass="custom-button" text="Здатися">
+                <Button fx:id="surrenderBtn" contentDisplay="TOP" mnemonicParsing="false" styleClass="custom-button" text="%surrender-button">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
                 </Button>
-            <Button fx:id="newGameBtn" contentDisplay="TOP" mnemonicParsing="false" styleClass="custom-button" text="Нова гра" />
+            <Button fx:id="newGameBtn" contentDisplay="TOP" mnemonicParsing="false" styleClass="custom-button" text="%new-game-button" />
             </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

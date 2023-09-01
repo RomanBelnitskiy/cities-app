@@ -15,12 +15,12 @@ public class LanguageListCell extends ListCell<String> {
                 imageView.setFitHeight(16);
                 setGraphic(imageView);
                 setText("UA");
-            } else if (item.equals("USA")) {
+            } else if (item.equals("US")) {
                 ImageView imageView = new ImageView(this.getClass().getResource("/images/usa.png").toExternalForm());
                 imageView.setFitWidth(16);
                 imageView.setFitHeight(16);
                 setGraphic(imageView);
-                setText("USA");
+                setText("US");
             }
         }
     }
