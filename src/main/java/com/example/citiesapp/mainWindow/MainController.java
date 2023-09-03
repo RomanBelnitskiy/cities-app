@@ -44,8 +44,8 @@ public class MainController {
     private Stage stage;
 
 
-    public MainController() {
-        cityLoader = new UkrainianCitiesNamesLoader();
+    public void setCityLoader(CitiesNamesLoader cityLoader) {
+        this.cityLoader = cityLoader;
     }
 
     public void initNewGame() {
