@@ -34,7 +34,6 @@ public class HelloController {
 
     private ObservableList<String> languages;
     private Locale locale;
-    private CitiesNamesLoader cityLoader;
 
     public HelloController() {
         languages = FXCollections.observableArrayList("UA", "US");
