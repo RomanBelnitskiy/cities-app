@@ -15,7 +15,7 @@
    <top>
       <HBox prefHeight="26.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="rulesBtn" mnemonicParsing="false" prefHeight="23.0" prefWidth="82.0" styleClass="rule-button" text="%rules-button" />
+            <Button fx:id="rulesBtn" mnemonicParsing="false" prefHeight="23.0" prefWidth="82.0" styleClass="rules-button" text="%rules-button" />
             <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <ComboBox fx:id="cbLanguage" prefHeight="26.0" prefWidth="102.0" />
          </children>
@@ -27,13 +27,11 @@
             <Pane prefHeight="31.0" prefWidth="500.0" VBox.vgrow="ALWAYS" />
             <HBox prefHeight="16.0" prefWidth="500.0">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="574.0" text="%welcome" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                </children>
                <VBox.margin>
                   <Insets bottom="15.0" top="10.0" />
