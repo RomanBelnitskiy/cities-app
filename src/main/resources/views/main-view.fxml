@@ -9,38 +9,34 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane id="pane" maxHeight="400.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0"
-            prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19"
-            xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="pane" maxHeight="400.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <left>
-        <VBox prefHeight="400.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+        <VBox prefHeight="400.0" prefWidth="217.0" BorderPane.alignment="CENTER">
             <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
             <Label text="%enter-city-name">
                 <VBox.margin>
-                    <Insets bottom="10.0"/>
+                    <Insets bottom="10.0" />
                 </VBox.margin>
             </Label>
             <TextField fx:id="cityNameField" prefHeight="26.0" prefWidth="162.0">
                 <VBox.margin>
-                    <Insets bottom="10.0"/>
+                    <Insets bottom="10.0" />
                 </VBox.margin>
             </TextField>
             <Button fx:id="moveBtn" mnemonicParsing="false" styleClass="custom-button" text="%make-move">
                 <VBox.margin>
-                    <Insets/>
+                    <Insets />
                 </VBox.margin>
             </Button>
-            <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
-            <Button fx:id="surrenderBtn" contentDisplay="TOP" mnemonicParsing="false" styleClass="custom-button"
-                    text="%surrender-button">
+            <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <Button fx:id="surrenderBtn" contentDisplay="TOP" mnemonicParsing="false" styleClass="custom-button" text="%surrender-button">
                 <VBox.margin>
-                    <Insets bottom="10.0"/>
+                    <Insets bottom="10.0" />
                 </VBox.margin>
             </Button>
-            <Button fx:id="newGameBtn" contentDisplay="TOP" mnemonicParsing="false" styleClass="custom-button"
-                    text="%new-game-button"/>
+            <Button fx:id="newGameBtn" contentDisplay="TOP" mnemonicParsing="false" styleClass="custom-button" text="%new-game-button" />
         </VBox>
     </left>
     <center>

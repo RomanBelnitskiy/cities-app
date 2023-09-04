@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -38,6 +39,9 @@ public class MainController {
         this.stage = stage;
     }
 
+    public Game getGame() {
+        return game;
+    }
 
     @FXML
     public void initialize() {
@@ -72,7 +76,7 @@ public class MainController {
                 }
                 game.move(cityName);
 
-                if (game.computerCanMove()){
+                if (game.computerCanMove()) {
                     game.computerMove();
                 } else {
                     showCongratulationsDialog();
@@ -86,7 +90,7 @@ public class MainController {
         Optional<ButtonType> buttonPressed = showConfirmationAlert(
                 game.getPlayerName() + getLocal("congratulation-header"),
                 getLocal("congratulation-content"),
-                stage);
+                stage, game.getLocale());
         if (buttonPressed.isPresent()) {
             if (buttonPressed.get() == ButtonType.OK) {
                 game.initNewGame(getLocal("moves-list"));
@@ -96,14 +100,14 @@ public class MainController {
         }
     }
 
-    private EventHandler<ActionEvent> surrenderEventHandler(){
+    private EventHandler<ActionEvent> surrenderEventHandler() {
         return event -> {
             Optional<ButtonType> buttonPressed = showConfirmationAlert(
                     getLocal("surrender-header"),
                     getLocal("surrender-content"),
-                    stage);
+                    stage, game.getLocale());
             if (buttonPressed.isPresent()) {
-                if (buttonPressed.get() == ButtonType.OK){
+                if (buttonPressed.get() == ButtonType.OK) {
                     Platform.exit();
                 }
             }
@@ -115,9 +119,9 @@ public class MainController {
             Optional<ButtonType> buttonPressed = showConfirmationAlert(
                     game.getPlayerName() + getLocal("new-game-header"),
                     getLocal("new-game-content"),
-                    stage);
+                    stage, game.getLocale());
             if (buttonPressed.isPresent()) {
-                if (buttonPressed.get() == ButtonType.OK){
+                if (buttonPressed.get() == ButtonType.OK) {
                     game.initNewGame(getLocal("moves-list"));
                 }
             }
