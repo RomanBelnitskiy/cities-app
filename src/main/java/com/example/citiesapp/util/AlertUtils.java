@@ -6,7 +6,9 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class AlertUtils {
     public static void showInformationAlert(String content, Stage owner) {
@@ -27,11 +29,17 @@ public class AlertUtils {
         alert.showAndWait();
     }
 
-    public static Optional<ButtonType> showConfirmationAlert(String header, String content, Stage owner) {
+    public static Optional<ButtonType> showConfirmationAlert(String header, String content, Stage owner, Locale locale) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initStyle(StageStyle.UNDECORATED);
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Так");
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Ні");
+
+        ResourceBundle bundle = FXMLUtils.loadLanguageResources(locale);
+        String okText = bundle.getString("confirmation-okButton");
+        String cancelText = bundle.getString("confirmation-cancelButton");
+
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText(okText);
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText(cancelText);
+
         alert.initOwner(owner);
         alert.setHeaderText(header);
         alert.setContentText(content);
