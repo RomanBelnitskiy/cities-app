@@ -4,6 +4,7 @@ import com.example.citiesapp.loadNames.CitiesNamesLoader;
 import com.example.citiesapp.loadNames.UkrainianCitiesEnglishNamesLoader;
 import com.example.citiesapp.loadNames.UkrainianCitiesNamesLoader;
 import com.example.citiesapp.mainWindow.MainController;
+import com.example.citiesapp.util.AlertUtils;
 import com.example.citiesapp.util.FXMLUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +32,8 @@ public class HelloController {
     private TextField playerName;
     @FXML
     private Button startBtn;
-
+    @FXML
+    private Button rulesBtn;
     private ObservableList<String> languages;
     private Locale locale;
 
@@ -48,7 +50,15 @@ public class HelloController {
         playerName.setOnAction(this::startButtonHandler);
         playerName.requestFocus();
 
+        rulesBtn.setOnAction(this::rulesButtonHandler);
         startBtn.setOnAction(this::startButtonHandler);
+    }
+
+    private void rulesButtonHandler(ActionEvent event) {
+        Stage stage = getStageFromEvent(event);
+        ResourceBundle bundle = FXMLUtils.loadLanguageResources(locale);
+        String rulesMessage = bundle.getString("game-rules-message");
+        AlertUtils.showInformationAlert(rulesMessage, stage);
     }
 
     private void switchLanguage(ActionEvent event) {

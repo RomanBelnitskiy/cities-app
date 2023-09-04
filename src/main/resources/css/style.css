@@ -47,6 +47,19 @@ Label {
   -fx-background-color:white;
   -fx-text-fill: #0095E5;
 }
+.rule-button
+{
+    -fx-font: 14px "Roboto";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    /*-fx-padding: 5 25 5 25;*/
+    -fx-background-color: #0095E5;
+}
+.rule-button:hover
+{
+  -fx-background-color:white;
+  -fx-text-fill: #0095E5;
+}
 
 ListView .list-cell {
     -fx-font: 14px "Roboto";

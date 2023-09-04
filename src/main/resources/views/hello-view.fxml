@@ -11,12 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="pane" maxHeight="400.0" maxWidth="500.0" minHeight="185.0" minWidth="500.0"
-            prefHeight="185.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citiesapp.helloWindow.HelloController">
+<BorderPane id="pane" maxHeight="400.0" maxWidth="500.0" minHeight="185.0" minWidth="500.0" prefHeight="185.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citiesapp.helloWindow.HelloController">
    <top>
       <HBox prefHeight="26.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
+            <Button fx:id="rulesBtn" mnemonicParsing="false" prefHeight="23.0" prefWidth="82.0" styleClass="rule-button" text="%rules-button" />
             <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <ComboBox fx:id="cbLanguage" prefHeight="26.0" prefWidth="102.0" />
          </children>
