@@ -1,25 +1,20 @@
 package com.example.citiesapp.mainWindow;
 
-import com.example.citiesapp.loadNames.CitiesNamesLoader;
-import com.example.citiesapp.loadNames.UkrainianCitiesNamesLoader;
-import com.example.citiesapp.util.AlertUtils;
+import com.example.citiesapp.mainLogic.Game;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static com.example.citiesapp.util.AlertUtils.*;
-import static com.example.citiesapp.util.WindowUtils.*;
 
 public class MainController {
     @FXML
@@ -33,40 +28,20 @@ public class MainController {
     @FXML
     private ListView<String> movesList;
 
-    private final ObservableList<String> moves = FXCollections.observableArrayList();
-    private String playerName;
-    private String currentCity;
-    private CitiesNamesLoader cityLoader;
-    private int movesCounter;
-    private boolean firstMove;
-    private Map<String, Boolean> usedCities;
-    private ResourceBundle bundle;
-    private Stage stage;
+    private final Game game;
+    private final ResourceBundle bundle;
+    private final Stage stage;
 
-
-    public void setCityLoader(CitiesNamesLoader cityLoader) {
-        this.cityLoader = cityLoader;
+    public MainController(Game game, ResourceBundle bundle, Stage stage) {
+        this.game = game;
+        this.bundle = bundle;
+        this.stage = stage;
     }
 
-    public void initNewGame() {
-        firstMove = true;
-        currentCity = "";
-
-        setupCitiesNames(cityLoader);
-
-        moves.clear();
-        moves.add(getLocal("moves-list"));
-    }
-
-    private void setupCitiesNames(CitiesNamesLoader loader) {
-        usedCities = loader.getCitiesNames()
-                .stream()
-                .collect(Collectors.toMap(Function.identity(), el -> Boolean.valueOf(false)));
-    }
 
     @FXML
     public void initialize() {
-        movesList.setItems(moves);
+        movesList.setItems(game.getMoves());
 
         moveBtn.setOnAction(moveEventHandler());
         surrenderBtn.setOnAction(surrenderEventHandler());
@@ -74,97 +49,63 @@ public class MainController {
 
         cityNameField.setOnAction(moveEventHandler());
         cityNameField.requestFocus();
+
+        game.initNewGame(getLocal("moves-list"));
     }
 
     private EventHandler<ActionEvent> moveEventHandler() {
         return event -> {
             String cityName = cityNameField.getText();
-            Boolean result = usedCities.get(cityName);
-            if (result == null) {
+            if (!game.isCityNamePresent(cityName)) {
                 showErrorAlert(getLocal("city-doesnt-exist"));
                 return;
             }
-            if (result) {
+            if (game.isCityNameUsed(cityName)) {
                 showInformationAlert(String.format(getLocal("city-was-used"), cityName), stage);
             } else {
-                if (!firstMove) {
-                    Character lastChar = getLastValidCharacter(currentCity);
-                    if (!cityName.startsWith(lastChar.toString().toUpperCase())) {
-                        showInformationAlert(
-                                String.format(getLocal("city-name-not-valid"), cityName),
-                                getLocal("city-name-rule"),
-                                stage
-                        );
-                        return;
-                    }
-                } else {
-                    firstMove = false;
+                if (!game.checkCityNameForRules(cityName)) {
+                    showInformationAlert(
+                            String.format(getLocal("city-name-not-valid"), cityName),
+                            getLocal("city-name-rule"),
+                            stage
+                    );
                 }
-                usedCities.put(cityName, true);
-                movesCounter++;
-                moves.add(1, movesCounter + ". " + playerName + ": " + cityName);
+                game.move(cityName);
 
-                cityNameField.setText("");
-                currentCity = cityName;
-                moveAI();
+                if (game.computerCanMove()){
+                    game.computerMove();
+                } else {
+                    showCongratulationsDialog();
+                }
             }
+            cityNameField.setText("");
         };
     }
 
-    private void moveAI() {
-        Character c = getLastValidCharacter(currentCity);
-
-        boolean computerCanMove = computerCanMove(c);
-
-        if (computerCanMove){
-            Optional<String> optName = usedCities.entrySet()
-                    .stream()
-                    .filter(entry -> entry.getKey().startsWith(c.toString().toUpperCase()) && !entry.getValue())
-                    .map(Map.Entry::getKey)
-                    .findFirst();
-
-            if (optName.isPresent()) {
-                String name = optName.get();
-                movesCounter++;
-                moves.add(1, movesCounter + getLocal("ai-name") + name);
-                currentCity = name;
-                usedCities.put(name, true);
-        }
-        } else {
-            showCongratulationsDialog();
-        }
-    }
-    private boolean computerCanMove (Character lastChar){
-        for (Map.Entry<String, Boolean> entry : usedCities.entrySet()){
-            String cityValue = entry.getKey();
-            Boolean isCityUsed = entry.getValue();
-
-            if (!isCityUsed && cityValue.startsWith(lastChar.toString().toUpperCase())){
-                return true;
-            }
-        }
-        return false;
-    }
     private void showCongratulationsDialog() {
         Optional<ButtonType> buttonPressed = showConfirmationAlert(
-                playerName + getLocal("congratulation-header"),
+                game.getPlayerName() + getLocal("congratulation-header"),
                 getLocal("congratulation-content"),
                 stage);
-
-        if (buttonPressed.get() == ButtonType.OK) {
-            initNewGame();
-        } else {
-            Platform.exit();
+        if (buttonPressed.isPresent()) {
+            if (buttonPressed.get() == ButtonType.OK) {
+                game.initNewGame(getLocal("moves-list"));
+            } else {
+                Platform.exit();
+            }
         }
     }
+
     private EventHandler<ActionEvent> surrenderEventHandler(){
         return event -> {
             Optional<ButtonType> buttonPressed = showConfirmationAlert(
                     getLocal("surrender-header"),
                     getLocal("surrender-content"),
                     stage);
-            if (buttonPressed.get() == ButtonType.OK){
-                Platform.exit();
+            if (buttonPressed.isPresent()) {
+                if (buttonPressed.get() == ButtonType.OK){
+                    Platform.exit();
+                }
             }
         };
     }
@@ -172,42 +113,18 @@ public class MainController {
     private EventHandler<ActionEvent> newGameEventHandler() {
         return event -> {
             Optional<ButtonType> buttonPressed = showConfirmationAlert(
-                    playerName + getLocal("new-game-header"),
+                    game.getPlayerName() + getLocal("new-game-header"),
                     getLocal("new-game-content"),
                     stage);
-            if (buttonPressed.get() == ButtonType.OK){
-                initNewGame();
+            if (buttonPressed.isPresent()) {
+                if (buttonPressed.get() == ButtonType.OK){
+                    game.initNewGame(getLocal("moves-list"));
+                }
             }
         };
     }
 
-    private Character getLastValidCharacter(String cityName) {
-        for (int i = cityName.length() - 1; i > 0; i--) {
-            if (isCharacterValid(cityName.charAt(i))) {
-                return cityName.charAt(i);
-            }
-        }
-
-        return null;
-    }
-
-    private boolean isCharacterValid(char c) {
-        return c != 'и' && c != 'ь' && c != 'й' && c != 'ї' && c != 'ц' && c != '\'';
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public void setBundle(ResourceBundle bundle) {
-        this.bundle = bundle;
-    }
-
     private String getLocal(String key) {
         return bundle.getString(key);
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 }

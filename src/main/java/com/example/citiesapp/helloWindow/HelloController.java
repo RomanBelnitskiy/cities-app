@@ -1,8 +1,6 @@
 package com.example.citiesapp.helloWindow;
 
-import com.example.citiesapp.loadNames.CitiesNamesLoader;
-import com.example.citiesapp.loadNames.UkrainianCitiesEnglishNamesLoader;
-import com.example.citiesapp.loadNames.UkrainianCitiesNamesLoader;
+import com.example.citiesapp.mainLogic.Game;
 import com.example.citiesapp.mainWindow.MainController;
 import com.example.citiesapp.util.AlertUtils;
 import com.example.citiesapp.util.FXMLUtils;
@@ -34,7 +32,8 @@ public class HelloController {
     private Button startBtn;
     @FXML
     private Button rulesBtn;
-    private ObservableList<String> languages;
+
+    private final ObservableList<String> languages;
     private Locale locale;
 
     public HelloController() {
@@ -92,20 +91,11 @@ public class HelloController {
 
     private Scene createMainWindowScene(Stage stage) {
         FXMLLoader fxmlLoader = getLocalizedFXMLLoader("/views/main-view.fxml", locale);
-        Parent root = loadRoot(fxmlLoader);
-
-        CitiesNamesLoader cityLoader = locale.equals(Locale.US)
-                ? new UkrainianCitiesEnglishNamesLoader()
-                : new UkrainianCitiesNamesLoader();
-
-        MainController controller = fxmlLoader.getController();
-        controller.setCityLoader(cityLoader);
-
-        controller.setPlayerName(playerName.getText());
         ResourceBundle bundle = FXMLUtils.loadLanguageResources(locale);
-        controller.setBundle(bundle);
-        controller.setStage(stage);
-        controller.initNewGame();
+        Game game = new Game(locale, playerName.getText(), bundle.getString("ai-name"));
+        MainController controller = new MainController(game, bundle, stage);
+        fxmlLoader.setController(controller);
+        Parent root = loadRoot(fxmlLoader);
 
         return createScene(root);
     }
