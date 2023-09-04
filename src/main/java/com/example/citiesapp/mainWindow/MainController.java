@@ -39,10 +39,6 @@ public class MainController {
         this.stage = stage;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
     @FXML
     public void initialize() {
         movesList.setItems(game.getMoves());
