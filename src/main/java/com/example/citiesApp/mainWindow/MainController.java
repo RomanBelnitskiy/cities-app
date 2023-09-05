@@ -56,7 +56,7 @@ public class MainController {
         return event -> {
             String cityName = cityNameField.getText();
             if (!game.isCityNamePresent(cityName)) {
-                showErrorAlert(getLocal("city-doesnt-exist"));
+                showErrorAlert(getLocal("city-does-not-exist"));
                 return;
             }
             if (game.isCityNameUsed(cityName)) {
