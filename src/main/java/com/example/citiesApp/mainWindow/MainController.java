@@ -1,6 +1,6 @@
-package com.example.citiesapp.mainWindow;
+package com.example.citiesApp.mainWindow;
 
-import com.example.citiesapp.mainLogic.Game;
+import com.example.citiesApp.mainLogic.Game;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,11 +11,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static com.example.citiesapp.util.AlertUtils.*;
+import static com.example.citiesApp.util.AlertUtils.*;
 
 public class MainController {
     @FXML

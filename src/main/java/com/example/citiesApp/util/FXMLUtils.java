@@ -1,4 +1,4 @@
-package com.example.citiesapp.util;
+package com.example.citiesApp.util;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

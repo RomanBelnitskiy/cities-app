@@ -1,4 +1,4 @@
-package com.example.citiesapp.helloWindow;
+package com.example.citiesApp.helloWindow;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;

@@ -1,4 +1,4 @@
-package com.example.citiesapp.loadNames;
+package com.example.citiesApp.loadNames;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -4,11 +4,11 @@ module com.example.citiesapp {
 
     requires org.jsoup;
 
-    exports com.example.citiesapp;
-    exports com.example.citiesapp.helloWindow;
-    exports com.example.citiesapp.mainWindow;
-    exports com.example.citiesapp.mainLogic;
-    opens com.example.citiesapp to javafx.fxml;
-    opens com.example.citiesapp.helloWindow to javafx.fxml;
-    opens com.example.citiesapp.mainWindow to javafx.fxml;
+    exports com.example.citiesApp;
+    exports com.example.citiesApp.helloWindow;
+    exports com.example.citiesApp.mainWindow;
+    exports com.example.citiesApp.mainLogic;
+    opens com.example.citiesApp to javafx.fxml;
+    opens com.example.citiesApp.helloWindow to javafx.fxml;
+    opens com.example.citiesApp.mainWindow to javafx.fxml;
 }

@@ -1,4 +1,4 @@
-package com.example.citiesapp.util;
+package com.example.citiesApp.util;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

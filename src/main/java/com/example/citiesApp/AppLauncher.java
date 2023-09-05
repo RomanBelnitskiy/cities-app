@@ -1,4 +1,4 @@
-package com.example.citiesapp;
+package com.example.citiesApp;
 
 /**
  * This class was added for creating executable jar only.

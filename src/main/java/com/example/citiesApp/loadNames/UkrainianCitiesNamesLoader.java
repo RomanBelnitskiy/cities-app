@@ -1,6 +1,5 @@
-package com.example.citiesapp.loadNames;
+package com.example.citiesApp.loadNames;
 
-import com.example.citiesapp.loadNames.CitiesNamesLoader;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

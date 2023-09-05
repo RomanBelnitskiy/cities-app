@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="pane" maxHeight="400.0" maxWidth="500.0" minHeight="185.0" minWidth="500.0" prefHeight="185.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citiesapp.helloWindow.HelloController">
+<BorderPane id="pane" maxHeight="400.0" maxWidth="500.0" minHeight="185.0" minWidth="500.0" prefHeight="185.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citiesApp.helloWindow.HelloController">
    <top>
       <HBox prefHeight="26.0" prefWidth="500.0" BorderPane.alignment="CENTER">
          <children>
