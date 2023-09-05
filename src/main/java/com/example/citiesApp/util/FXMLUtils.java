@@ -1,4 +1,4 @@
-package com.example.citiesapp.util;
+package com.example.citiesApp.util;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,11 +9,12 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import static java.util.Objects.requireNonNull;
+
 public class FXMLUtils {
     public static FXMLLoader getLocalizedFXMLLoader(String viewPath, Locale locale) {
-        FXMLLoader fxmlLoader = new FXMLLoader(FXMLUtils.class.getResource(viewPath),
+        return new FXMLLoader(FXMLUtils.class.getResource(viewPath),
                 loadLanguageResources(locale));
-        return fxmlLoader;
     }
 
     public static Parent loadRoot(FXMLLoader fxmlLoader) {
@@ -26,7 +27,7 @@ public class FXMLUtils {
 
     public static Scene createScene(Parent root) {
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(FXMLUtils.class.getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(requireNonNull(FXMLUtils.class.getResource("/css/style.css")).toExternalForm());
 
         return scene;
     }
@@ -44,7 +45,7 @@ public class FXMLUtils {
     }
 
     public static Image loadAppIcon() {
-        return new Image(FXMLUtils.class.getResource("/images/city_icon.png").toExternalForm());
+        return new Image(requireNonNull(FXMLUtils.class.getResource("/images/city_icon.png")).toExternalForm());
     }
 
     private FXMLUtils() {}

@@ -1,4 +1,4 @@
-package com.example.citiesapp.util;
+package com.example.citiesApp.util;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;

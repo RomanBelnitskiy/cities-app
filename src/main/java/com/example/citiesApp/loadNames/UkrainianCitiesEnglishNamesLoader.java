@@ -1,4 +1,4 @@
-package com.example.citiesapp.loadNames;
+package com.example.citiesApp.loadNames;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,14 +13,18 @@ import java.util.regex.Pattern;
 
 public class UkrainianCitiesEnglishNamesLoader implements CitiesNamesLoader{
     private final static String WIKI_PAGE_URL = "https://en.wikipedia.org/wiki/List_of_cities_in_Ukraine";
-    private Set<String> englishCityNames;
+    @SuppressWarnings("SpellCheckingInspection")
+    private final static String QUERY = "table.wikitable td:eq(0)";
+    private final static String REGEX = "^(.*?)\\[(a|b|c|d)\\]$";
+
+    private final Set<String> englishCityNames;
 
     public UkrainianCitiesEnglishNamesLoader() {
         englishCityNames = new HashSet<>();
         try {
             Document doc = Jsoup.connect(WIKI_PAGE_URL).get();
-            Elements references = doc.select("table.wikitable td:eq(0)");
-            Pattern pattern = Pattern.compile("^(.*?)\\[(a|b|c|d)\\]$");
+            Elements references = doc.select(QUERY);
+            Pattern pattern = Pattern.compile(REGEX);
             for (Element element : references) {
                 String cityName = element.text();
                 Matcher matcher = pattern.matcher(cityName);

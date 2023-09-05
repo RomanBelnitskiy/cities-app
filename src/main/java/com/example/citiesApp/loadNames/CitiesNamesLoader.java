@@ -1,4 +1,4 @@
-package com.example.citiesapp.loadNames;
+package com.example.citiesApp.loadNames;
 
 import java.util.Set;
 

@@ -1,6 +1,6 @@
-package com.example.citiesapp;
+package com.example.citiesApp;
 
-import com.example.citiesapp.helloWindow.HelloController;
+import com.example.citiesApp.helloWindow.HelloController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static com.example.citiesapp.util.FXMLUtils.*;
+import static com.example.citiesApp.util.FXMLUtils.*;
 
 public class CitiesApp extends Application {
     @Override

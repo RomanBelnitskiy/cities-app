@@ -1,8 +1,8 @@
-package com.example.citiesapp.mainLogic;
+package com.example.citiesApp.mainLogic;
 
-import com.example.citiesapp.loadNames.CitiesNamesLoader;
-import com.example.citiesapp.loadNames.UkrainianCitiesEnglishNamesLoader;
-import com.example.citiesapp.loadNames.UkrainianCitiesNamesLoader;
+import com.example.citiesApp.loadNames.CitiesNamesLoader;
+import com.example.citiesApp.loadNames.UkrainianCitiesEnglishNamesLoader;
+import com.example.citiesApp.loadNames.UkrainianCitiesNamesLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

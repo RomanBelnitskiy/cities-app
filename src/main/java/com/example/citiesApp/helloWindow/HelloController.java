@@ -1,9 +1,9 @@
-package com.example.citiesapp.helloWindow;
+package com.example.citiesApp.helloWindow;
 
-import com.example.citiesapp.mainLogic.Game;
-import com.example.citiesapp.mainWindow.MainController;
-import com.example.citiesapp.util.AlertUtils;
-import com.example.citiesapp.util.FXMLUtils;
+import com.example.citiesApp.mainLogic.Game;
+import com.example.citiesApp.mainWindow.MainController;
+import com.example.citiesApp.util.AlertUtils;
+import com.example.citiesApp.util.FXMLUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,9 +19,9 @@ import javafx.stage.Stage;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static com.example.citiesapp.util.AlertUtils.showInformationAlert;
-import static com.example.citiesapp.util.FXMLUtils.*;
-import static com.example.citiesapp.util.WindowUtils.getStageFromEvent;
+import static com.example.citiesApp.util.AlertUtils.showInformationAlert;
+import static com.example.citiesApp.util.FXMLUtils.*;
+import static com.example.citiesApp.util.WindowUtils.getStageFromEvent;
 
 public class HelloController {
     @FXML
