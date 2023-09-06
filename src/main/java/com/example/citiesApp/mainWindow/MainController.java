@@ -68,6 +68,7 @@ public class MainController {
                             getLocal("city-name-rule"),
                             stage
                     );
+                    return;
                 }
                 game.move(cityName);
 
